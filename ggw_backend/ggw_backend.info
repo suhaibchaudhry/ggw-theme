@@ -5,3 +5,5 @@ engine = phptemplate
 base theme = rubik
 
 stylesheets[all][] = css/ggw_backend.css
+stylesheets[screen][] = css/ggw_backend_screen.css
+stylesheets[print][] = css/ggw_backend_print.css

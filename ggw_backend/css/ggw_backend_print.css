@@ -1,0 +1,19 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: .8em;
+}
+#branding, a#help-toggler, #console, #help-text {
+	display: none;
+}
+
+table td, table th {
+	font-size: .8em;
+	line-height: 1em;
+	padding: .5em;
+	border: none;
+	text-align: left;
+}
+
+ table.sticky-header {
+ 	display: none;
+ }
