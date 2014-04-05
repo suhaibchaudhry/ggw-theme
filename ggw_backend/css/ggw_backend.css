@@ -1,0 +1,134 @@
+#screen {
+	overflow: auto;	
+}
+.node-type-profile {
+	
+}
+
+#number-pad {
+	display: none;	
+}
+
+.uberpos-align-top #buttons td {
+	width: 50%;
+}
+
+#uberpos .uberpos-align-top:nth-child(2) {
+	width:40%;
+}
+
+#uberpos #uberpos-interface {
+	width: auto;	
+}
+
+.up-button, .up-button-submit {
+	font-size: 21px;
+	font-weight: bold;
+	padding: 10px 0 10px;
+	border-radius: 3px;
+	background: rgb(206,206,206);
+	background: -moz-linear-gradient(top, rgba(206,206,206,1) 0%, rgba(193,193,193,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(206,206,206,1)), 	color-stop(100%,rgba(193,193,193,1)));
+	background: -webkit-linear-gradient(top, rgba(206,206,206,1) 0%,rgba(193,193,193,1) 100%);
+	background: -o-linear-gradient(top, rgba(206,206,206,1) 0%,rgba(193,193,193,1) 100%);
+	background: -ms-linear-gradient(top, rgba(206,206,206,1) 0%,rgba(193,193,193,1) 100%);
+	background: linear-gradient(to bottom, rgba(206,206,206,1) 0%,rgba(193,193,193,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cecece', endColorstr='#c1c1c1',GradientType=0 );
+}
+
+
+.up-button:hover, .up-button-submit:hover {
+	background: rgb(79,133,187);
+	background: -moz-linear-gradient(top, rgba(79,133,187,1) 0%, rgba(83,146,188,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(79,133,187,1)), 	color-stop(100%,rgba(83,146,188,1)));
+	background: -webkit-linear-gradient(top, rgba(79,133,187,1) 0%,rgba(83,146,188,1) 100%);
+	background: -o-linear-gradient(top, rgba(79,133,187,1) 0%,rgba(83,146,188,1) 100%);
+	background: -ms-linear-gradient(top, rgba(79,133,187,1) 0%,rgba(83,146,188,1) 100%);
+	background: linear-gradient(to bottom, rgba(79,133,187,1) 0%,rgba(83,146,188,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4f85bb', endColorstr='#5392bc',GradientType=0 );
+	color: #fcfcfc;
+}
+
+#uberpos-interface table#input-date {
+	font-size: 12px;
+}
+
+#main-table tr:nth-child(even) {
+	background: #eaeaea;
+}
+
+#screen table tr {
+	font-size: 14px;
+}
+
+#uberpos-interface #line-items {
+	background: #000;
+	margin: 10px 0;
+	padding: 10px;
+	border: 2px solid #68b800;
+	height: 66px;
+}
+
+#uberpos-interface #line-items .uc-price {
+	color: #fff;
+}
+
+#uberpos-total, #uberpos-paid, #uberpos-due, .uberpos-line-item {
+	text-transform: uppercase;
+	text-align: right;
+	color: #68b800;
+	font-size: 13px;
+	padding: 1px 0;
+}
+
+#uberpos-interface #line-items .uberpos-line-item:nth-child(3) {
+	font-size: 36px;
+	float: left;
+	padding: 15px 0;
+}
+
+#uberpos-interface #line-items .uberpos-line-item:nth-child(1) {
+	font-size: 16px;
+	float: left;
+}
+
+#pos-js-mods-manager-access-form input, #pos-js-mods-manager-access-form div.form-item {
+	display: inline;	
+}
+
+#table-heading {
+	color: #666;
+	background: #EEE;
+	float: left;
+	width: 100%;	
+	border: 1px solid black;
+	border-bottom: none;
+}
+
+#table-heading div {
+	float: left;
+	font-size: 14px;
+	padding: 8px 5px;
+}
+
+#table-heading div.price {
+	text-align: right;	
+}
+
+span.desc-changed, span.desc-changed {
+ display: block;
+ width: 27px;
+ height: 24px;
+ background: url(../images/check.png) no-repeat;
+}
+
+span.desc-changed-n {
+ background-position: -27px;	
+}
+
+table#field_additional_barcodes_values td.content-multiple-drag {
+	width: 40px;
+}
+#edit-status-wrapper {
+	float: left;
+}

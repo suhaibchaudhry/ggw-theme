@@ -1,0 +1,12 @@
+/*Blog Block and Featured Products Block*/
+.footer ul.menu {
+    width: 418px;
+	display: inline;
+}
+.footer ul.menu li {
+	margin-bottom: 2px;	
+}
+.footer .block-image {
+	float: left;
+	margin-top: 5px;
+}

@@ -1,0 +1,7 @@
+name = General Goods Backend
+description = A tableless backend theme for General Goods.
+core = 6.x
+engine = phptemplate
+base theme = rubik
+
+stylesheets[all][] = css/ggw_backend.css
