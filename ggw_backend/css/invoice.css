@@ -2,6 +2,7 @@ body {
 	font: 12px Verdana, Arial, Helvetica;
 	margin: 0;
 	padding: 0;
+	/*counter-reset: page_number;*/
 }
 
 @page  
@@ -55,12 +56,11 @@ body {
 	right: 0;
 	margin: 8px 10px;
 }
-
+/*
 p.page span.value:after {
-	counter-increment: page;
-	counter-reset: page 0;
-    content: "Page " counter(page) " of " counter(pages);
-}
+	counter-increment: page_number;
+    content: counter(page_number);
+}*/
 .cust-address {
 	width: 50%;
 	float: left;

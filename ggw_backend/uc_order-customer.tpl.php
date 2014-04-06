@@ -47,7 +47,7 @@
         <p><span class="label">Tobacco ID: </span>11111111</p>
       </div>
       <div class="invoice-info column">
-        <p class="page"><span class="label">Page:</span> <span class="value"></span></p>
+        <!--<p class="page"><span class="label">Page:</span> <span class="value"></span></p>-->
         <p class="invoiceid"><span class="label">Invoice #:</span> <span class="value"><?php echo $order_link; ?></span></p>
         <p class="invoicedate"><span class="label">Invoice Date:</span> <span class="value"><?php echo $order_date_created; ?></span></p>
       </div>
@@ -58,12 +58,17 @@
       <div class="billing-address cust-address">
         <span class="label">Sold To:</span>
         <span class="value">
+          <?php if($uid) { ?>
           <?php print $profile->title ?> (<?php print $profile->name ?>)<br />
           <?php print $profile->field_contact_remarks[0]['value'] ?><br />
           <?php print $profile->field_company_address[0]['street1'] ?><br />
           <?php print $profile->field_company_address[0]['city'] ?>, <?php print $profile->field_company_address[0]['state'] ?> <?php print $profile->field_company_address[0]['zip'] ?><br />
+          <?php } else { ?>
+            Walk-in Customer
+          <?php } ?>
         </span>
       </div>
+      <?php if($uid) : ?>
       <div class="shipping-address cust-address">
         <span class="label">Deliver To:</span>
         <span class="value">
@@ -75,6 +80,7 @@
           <strong>Phone: </strong><?php print $profile->field_profile_company_phone[0]['number'] ?>
         </span>
       </div>
+      <?php endif; ?>
     </div>
 
     <div class="products">
