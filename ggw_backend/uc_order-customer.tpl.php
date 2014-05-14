@@ -163,6 +163,7 @@
     </div>
 
     <div class="line-items"><?php print uc_order_pane_line_items('view', $order); ?></div>
+    <div class="payment-details"><?php print ggw_backend_transaction_details($order->order_id); ?></div>
   </div>
 </body>
 </html>
