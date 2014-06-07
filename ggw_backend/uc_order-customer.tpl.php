@@ -49,7 +49,7 @@
       <div class="invoice-info column">
         <!--<p class="page"><span class="label">Page:</span> <span class="value"></span></p>-->
         <p class="invoiceid"><span class="label">Invoice #:</span> <span class="value"><?php echo $order_link; ?></span></p>
-        <p class="invoicedate"><span class="label">Invoice Date:</span> <span class="value"><?php echo $order_date_created; ?></span></p>
+        <p class="invoicedate"><span class="label">Invoice Date:</span> <span class="value"><?php echo date("n/j/Y g:ia", $order->created); ?></span></p>
       </div>
     </div>
 
