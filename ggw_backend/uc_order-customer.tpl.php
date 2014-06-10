@@ -92,17 +92,24 @@
 
       //Condense multi-line item products.
       $exists = array();
-      foreach($products as $key => $product) {
+      $new = array();
+
+      $product_new = array();
+      foreach ($products as $k => $v) {
+       $products_new[$k] = clone $v;
+      }
+
+      foreach($products_new as $key => $product) {
         if(isset($exists[$product->nid])) {
           $key_first = $exists[$product->nid];
-          $products[$key_first]->qty += $product->qty;
-          unset($products[$key]);
+          $products_new[$key_first]->qty += $product->qty;
+          unset($products_new[$key]);
         } else {
           $exists[$product->nid] = $key;
         }
       }
 
-      foreach ($products as $product) {
+      foreach ($products_new as $product) {
         $node = node_load($product->nid);
         foreach($node->taxonomy as $term) {
           if($term->vid == 7) {
