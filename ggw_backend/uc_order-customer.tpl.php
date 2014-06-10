@@ -89,6 +89,19 @@
       $tables = array();
       //Add suggested
       $header = array(array('data' => 'Carton Barcode', 'class' => 'left-item'), 'Description', 'Packaging', 'Qty', 'Price', 'Extended', 'Unit Price', 'Sugg. Retail', 'Profit Margin', 'Extended Retail');
+
+      //Condense multi-line item products.
+      $exists = array();
+      foreach($products as $key => $product) {
+        if(isset($exists[$product->nid])) {
+          $key_first = $exists[$product->nid];
+          $products[$key_first]->qty += $product->qty;
+          unset($products[$key]);
+        } else {
+          $exists[$product->nid] = $key;
+        }
+      }
+
       foreach ($products as $product) {
         $node = node_load($product->nid);
         foreach($node->taxonomy as $term) {
