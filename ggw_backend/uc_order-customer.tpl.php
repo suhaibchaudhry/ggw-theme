@@ -137,7 +137,11 @@
         }
 
         $form = (int)$node->field_prod_form[0]['value'];
-        $unit_price = $product->price/$form;
+        $qty_split = db_result(db_query("SELECT qty_split FROM pos_api_expose_manager_override_log WHERE product_nid = '%d'", $product->order_product_id));
+	if($qty_split) {
+		$form = $form/$qty_split;
+	}
+	$unit_price = $product->price/$form;
         $suggested = $unit_price*$retail_markup;
         $extended = $product->price*$product->qty*$retail_markup;
         $row = array(
