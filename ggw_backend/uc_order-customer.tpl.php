@@ -143,10 +143,10 @@
 
         $form = (int)$node->field_prod_form[0]['value'];
         $qty_split = db_result(db_query("SELECT qty_split FROM pos_api_expose_manager_override_log WHERE product_nid = '%d'", $product->order_product_id));
-	if($qty_split) {
-		$form = $form/$qty_split;
-	}
-	$unit_price = $product->price/$form;
+      	if($qty_split) {
+      		$form = $form/$qty_split;
+      	}
+	      $unit_price = $product->price/$form;
         $suggested = $unit_price*$retail_markup;
         $extended = $product->price*$product->qty*$retail_markup;
         $row = array(
@@ -167,8 +167,8 @@
         $tables[$category]['line_count']++;
         $tables[$category]['item_count'] += $product->qty;
         $tables[$category]['total'] += $product->price*$product->qty;
-        $tables[$category]['unit_price'] += $unit_price;
-        $tables[$category]['suggested'] += $suggested;
+        //$tables[$category]['unit_price'] += $unit_price;
+        //$tables[$category]['suggested'] += $suggested*$product->qty;
         $tables[$category]['profit'] += $term_info->retail_markup;
         $i++;
         $tables[$category]['retail'] += $extended;
@@ -182,8 +182,10 @@
           '<center>'.$tables[$category]['item_count'].'</center>',
           '',
           array('data' => '<strong>$'.number_format($tables[$category]['total'], 2).'</strong>', 'class' => 'numeric-item'),
-          array('data' => '<strong>$'.number_format($tables[$category]['unit_price'], 2).'</strong>', 'class' => 'numeric-item'),
-          array('data' => '<strong>$'.number_format($tables[$category]['suggested'], 2).'</strong>', 'class' => 'numeric-item'),
+          '',
+          '',
+          //array('data' => '<strong>$'.number_format($tables[$category]['unit_price'], 2).'</strong>', 'class' => 'numeric-item'),
+          //array('data' => '<strong>$'.number_format($tables[$category]['suggested'], 2).'</strong>', 'class' => 'numeric-item'),
           array('data' => '<strong>'.number_format($tables[$category]['profit']/$i, 2).'%</strong>', 'class' => 'numeric-item'),
           array('data' => '<strong>$'.number_format($tables[$category]['retail'], 2).'</strong>', 'class' => 'numeric-item')
         );
