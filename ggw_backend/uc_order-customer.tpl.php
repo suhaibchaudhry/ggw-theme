@@ -154,7 +154,7 @@
           //$node->field_prod_unit_barcode[0]['value'],
           $node->title,
           $node->field_prod_packing[0]['value'],
-          array('data' => $product->qty, 'class' => 'qty-item'),
+          array('data' => round($product->qty, 2), 'class' => 'qty-item'),
           array('data' => number_format($product->price, 2), 'class' => 'numeric-item'),
           array('data' => number_format($product->price*$product->qty, 2), 'class' => 'numeric-item'),
           array('data' => number_format($unit_price, 2), 'class' => 'numeric-item'),
