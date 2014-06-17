@@ -93,7 +93,7 @@
       //Condense multi-line item products.
       $exists = array();
       $new = array();
-
+      
       $product_new = array();
       foreach ($products as $k => $v) {
        $products_new[$k] = clone $v;
@@ -102,7 +102,12 @@
       foreach($products_new as $key => $product) {
         if(isset($exists[$product->nid])) {
           $key_first = $exists[$product->nid];
-          $products_new[$key_first]->qty += $product->qty;
+          $qty_split = db_result(db_query("SELECT qty_split FROM pos_api_expose_manager_override_log WHERE product_nid = '%d'", $product->order_product_id));
+          if($qty_split) {
+            $products_new[$key_first]->qty += $product->qty/$qty_split;
+          } else {
+            $products_new[$key_first]->qty += $product->qty;
+          }
           unset($products_new[$key]);
         } else {
           $exists[$product->nid] = $key;
@@ -161,7 +166,7 @@
         $tables[$category]['rows'][] = $row;
         $tables[$category]['line_count']++;
         $tables[$category]['item_count'] += $product->qty;
-        $tables[$category]['total'] += $product->price;
+        $tables[$category]['total'] += $product->price*$product->qty;
         $tables[$category]['unit_price'] += $unit_price;
         $tables[$category]['suggested'] += $suggested;
         $tables[$category]['profit'] += $term_info->retail_markup;
