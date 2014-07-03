@@ -132,3 +132,6 @@ table#field_additional_barcodes_values td.content-multiple-drag {
 #edit-status-wrapper {
 	float: left;
 }
+#order-pane-ship_to, #order-pane-bill_to {
+ display: none;
+}

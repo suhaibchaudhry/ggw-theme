@@ -787,3 +787,6 @@ div.product-title {
 .front-slideshow {
 	position: relative;
 }
+#order-pane-ship_to, #order-pane-bill_to {
+ display: none;
+}
