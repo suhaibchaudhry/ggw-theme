@@ -94,7 +94,7 @@
       $exists = array();
       $new = array();
       
-      $product_new = array();
+      $products_new = array();
       foreach ($products as $k => $v) {
        $products_new[$k] = clone $v;
       }
@@ -142,6 +142,9 @@
         }
 
         $form = (int)$node->field_prod_form[0]['value'];
+        if(empty($form)) {
+          $form = 1;
+        }
         $qty_split = db_result(db_query("SELECT qty_split FROM pos_api_expose_manager_override_log WHERE product_nid = '%d'", $product->order_product_id));
       	if($qty_split) {
       		$form = $form/$qty_split;
