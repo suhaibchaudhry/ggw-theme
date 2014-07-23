@@ -16,7 +16,7 @@ body {
 
 .invoice {
 	/*min-width: 960px;*/
-	padding: 0 2em 0 1em;
+	padding: 0;
 	font-size: .7em;
 }
 .header {
@@ -67,8 +67,8 @@ p.page span.value:after {
 }
 .cust-address span.label {
 	display: block;
-	float: left;
-	margin: 0 13px 0 0;
+	/*float: left;*/
+	margin: 0 13px 5px 0;
 	background: #000;
 	color: #fff;
 	padding: 4px 11px;
@@ -77,6 +77,10 @@ p.page span.value:after {
 
 .cust-address span.value {
 	display: inline-block;
+}
+
+.shipping-address span.label {
+	margin-right: 0;
 }
 
 .products table {
@@ -117,4 +121,13 @@ table.line-item-table tr td {
 
 table.line-item-table tr td.li-amount {
 	text-align: right;
+}
+
+.line-items {
+	margin: 15px 0;
+}
+
+.payment-details table {
+	width: 100%;
+	margin: 0 0 15px;
 }

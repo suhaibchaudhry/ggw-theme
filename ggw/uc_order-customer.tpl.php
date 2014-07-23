@@ -12,8 +12,8 @@
 <!DOCTYPE HTML>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" href="<?php print base_path().drupal_get_path('theme', 'ggw_backend'); ?>/css/invoice.css" media="all" />
-  <title>Invoice</title>
+  <link rel="stylesheet" type="text/css" href="<?php print base_path() . drupal_get_path('theme', 'ggw_backend'); ?>/css/invoice.css" media="all" />
+  <title><?php print $profile->title ?> (<?php print $profile->name ?>)</title>
   <style type="text/css" media="all">
   body {
     -webkit-print-color-adjust:exact;
@@ -35,12 +35,12 @@
   }
   </script>
 </head>
-<body>
+<body style="padding: 0 2em;">
   <div class="invoice">
     <div class="header">
       <div class="logo column"></div>
       <div class="address column">
-        <p>8000 Harwin dr. SUITE #200 Houston, TX 77036</p>
+        <p>8000 Harwin dr. Suite #200 Houston, TX 77036</p>
         <p><span class="label">Email: </span>info@general-goods.com</p>
         <p><span class="label">Website: </span>info@general-goods.com</p>
         <p><span class="label">Phone: </span>713-780-3636 <span class="label">Fax: </span>713-780-1718</p>
