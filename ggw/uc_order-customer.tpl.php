@@ -35,7 +35,7 @@
   }
   </script>
 </head>
-<body style="padding: 0 2em;">
+<body>
   <div class="invoice">
     <div class="header">
       <div class="logo column"></div>
