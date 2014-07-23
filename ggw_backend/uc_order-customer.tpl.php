@@ -8,6 +8,12 @@
       $profile = content_profile_load('profile', $uid);
       //dpm($profile);
     }
+
+    $status_names = array(
+	"Closed Ticket" => "Customer Invoice",
+	"Quote Ticket" => "Customer Quotation",
+	"Closed RMA Ticket" => "Credit Memo"
+    );
 ?>
 <!DOCTYPE HTML>
 <head>
@@ -47,7 +53,7 @@
         <?php if($profile->field_tobacco_permit_id[0]['value']) : ?><p><span class="label">Tobacco ID: </span>93044639</p><?php endif; ?>
       </div>
       <div class="invoice-info column">
-        <!--<p class="page"><span class="label">Page:</span> <span class="value"></span></p>-->
+        <?php if($status_names[$order_status]) : ?><p class="invoiceid" style="font-size: 1.5em;"><span class="label"><?php print $status_names[$order_status] ?></span></p><?php endif; ?>
         <p class="invoiceid"><span class="label">Invoice #:</span> <span class="value"><?php echo $order_link; ?></span></p>
         <p class="invoicedate"><span class="label">Invoice Date:</span> <span class="value"><?php echo date("n/j/Y g:ia", $order->created); ?></span></p>
         <?php if($profile->field_tobacco_permit_id[0]['value']) : ?><p><span class="label">Tobacco ID: </span><?php echo $profile->field_tobacco_permit_id[0]['value']; ?></p><?php endif; ?>
