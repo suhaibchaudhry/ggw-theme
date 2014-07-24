@@ -9,10 +9,14 @@
       //dpm($profile);
     }
 
+    function sortCallback($a, $b) {
+      return strcasecmp($a[1], $b[1]);
+    }
+
     $status_names = array(
-	"Closed Ticket" => "Customer Invoice",
-	"Quote Ticket" => "Customer Quotation",
-	"Closed RMA Ticket" => "Credit Memo"
+    	"Closed Ticket" => "Customer Invoice",
+    	"Quote Ticket" => "Customer Quotation",
+    	"Closed RMA Ticket" => "Credit Memo"
     );
 ?>
 <!DOCTYPE HTML>
@@ -183,6 +187,7 @@
         $tables[$category]['retail'] += $extended;
       }
       foreach($tables as $category => $rows) {
+        usort($rows['rows'], 'sortCallback');
         print '<div class="category-wrap">'.$category.'</div>';
         $rows['rows'][] = array(
           '',
