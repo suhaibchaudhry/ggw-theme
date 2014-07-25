@@ -83,7 +83,7 @@ p.page span.value:after {
 	margin-right: 0;
 }
 
-.products table {
+.products table, .line-items table {
 	width: 100%;
 	font-size: 1em;
 }
