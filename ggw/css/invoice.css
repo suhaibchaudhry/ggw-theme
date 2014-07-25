@@ -85,6 +85,7 @@ p.page span.value:after {
 
 .products table {
 	width: 100%;
+	font-size: 1em;
 }
 .category-wrap {
 	background: #000;
