@@ -98,7 +98,7 @@
       <?php
       $tables = array();
       //Add suggested
-      $header = array(array('data' => 'Carton Barcode', 'class' => 'left-item'), 'Description', 'Packaging', 'Qty', 'Price', 'Extended', 'Unit Price', 'Sugg. Retail', 'Profit Margin', 'Extended Retail');
+      $header = array(array('data' => 'Barcode', 'class' => 'left-item'), 'Description', 'Packaging', 'Qty', 'Price', 'Extended', 'Unit Price', 'Sugg. Retail', 'Profit Margin', 'Extended Retail');
 
       //Condense multi-line item products.
       $exists = array();

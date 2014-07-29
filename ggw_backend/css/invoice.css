@@ -5,19 +5,10 @@ body {
 	/*counter-reset: page_number;*/
 }
 
-@page  
-{ 
-    size: auto;   /* auto is the initial value */ 
-
-    /* this affects the margin in the printer settings */ 
-    margin: 2mm 2mm 2mm 2mm;  
-}
-
-
 .invoice {
 	/*min-width: 960px;*/
 	padding: 0;
-	font-size: .7em;
+	font-size: .6em;
 }
 .header {
 	margin: 10px 0;
