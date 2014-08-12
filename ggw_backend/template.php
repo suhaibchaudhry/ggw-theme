@@ -48,6 +48,11 @@ function ggw_backend_admin_page($blocks) {
   return $output;
 }
 
+function ggw_backend_invoice_credit_amount($ticketId) {
+  $ar_sql = "SELECT credit_amount FROM user_term_credits_usages u WHERE u.order_id = '%d'";
+  return db_result(db_query($ar_sql, $ticketId));
+}
+
 function ggw_backend_transaction_details($ticketId) {
   $content = '<table>';
 
@@ -81,6 +86,12 @@ function ggw_backend_transaction_details($ticketId) {
     $content .= '<tr><td>Credit Card</td><td>'.uc_currency_format($cc->amount_paid).'</td><td>'.$td->xml->transaction->payment->creditCard->cardType.'</td><td>'.$td->xml->transaction->payment->creditCard->cardNumber.'</td><td>'.$td->xml->transaction->billTo->firstName.' '.$td->xml->transaction->billTo->lastName.'</td></tr>';
   }
 
+  $ar_sql = "SELECT order_id, credit_amount, due_date FROM user_term_credits_usages u WHERE u.order_id = '%d'";
+  $ar = db_fetch_object(db_query($ar_sql, $ticketId));
+  if($ar->order_id) {
+    $content .= '<tr><th>Method</th><th>Amount</th><th>Due Date</th></tr>';
+    $content .= '<tr><td>Credit</td><td>'.uc_currency_format($ar->credit_amount).'</td><td>'.date("n/j/Y", $ar->due_date).'</td></tr>';
+  }
   $content .= '</table>';
 
   return $content;
