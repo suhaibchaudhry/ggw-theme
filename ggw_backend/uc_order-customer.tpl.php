@@ -183,8 +183,8 @@
         $row = array(
           $product->model,
           //$node->field_prod_unit_barcode[0]['value'],
-          $node->title,
-          $node->field_prod_packing[0]['value'],
+          strlen($node->title) > 28 ? substr($node->title,0,28)."..." : $node->title,
+          strlen($node->field_prod_packing[0]['value']) > 8 ? substr($node->field_prod_packing[0]['value'],0,5)."..." : $node->field_prod_packing[0]['value'],
           array('data' => round($product->qty, 2), 'class' => 'qty-item'),
           array('data' => number_format($product->price, 2), 'class' => 'numeric-item'),
           array('data' => number_format($product->price*$product->qty, 2), 'class' => 'numeric-item'),
