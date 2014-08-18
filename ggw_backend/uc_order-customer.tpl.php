@@ -22,12 +22,12 @@
     );
     $full_user = user_load($uid);
 
-    $payment_remaining = '';
     if($full_user->credit_limits->pending_payments) {
       $ticket_ar = ggw_backend_invoice_credit_amount($order->order_id);
       if($ticket_ar) {
-        $payment_remaining .= '<strong>Starting Balance: </strong>'.uc_currency_format($full_user->credit_limits->pending_payments-$ticket_ar);
-        $payment_remaining .= '<br /><strong>Ending Balance: </strong>'.uc_currency_format($full_user->credit_limits->pending_payments);
+        $payment_remaining = theme('table', array('Starting Balance', 'Ending Balance'), array(
+          array(uc_currency_format($full_user->credit_limits->pending_payments-$ticket_ar), uc_currency_format($full_user->credit_limits->pending_payments))
+        ));
       }
     }
 ?>
@@ -78,9 +78,6 @@
           <p class="invoiceid"><span class="label">Invoice #:</span> <span class="value"><?php echo $order_link; ?></span></p>
           <p class="invoicedate"><span class="label">Invoice Date:</span> <span class="value"><?php echo date("n/j/Y g:ia", $order->created); ?></span></p>
           <?php if($profile->field_tobacco_permit_id[0]['value']) : ?><p><span class="label">Tobacco ID: </span><?php echo $profile->field_tobacco_permit_id[0]['value']; ?></p><?php endif; ?>
-          <?php if($payment_remaining) : ?>
-          <p><?php print $payment_remaining; ?></p>
-          <?php endif; ?>
         </div>
       </div>
 
@@ -231,6 +228,11 @@
 
     <div class="line-items"><?php print uc_order_pane_line_items('view', $order); ?></div>
     <div class="payment-details"><?php print ggw_backend_transaction_details($order->order_id); ?></div>
+    <div class="payment-details">
+      <?php if(isset($payment_remaining)) : ?>
+          <p><?php print $payment_remaining; ?></p>
+      <?php endif; ?>
+    </div>
   </div>
 </body>
 </html>
