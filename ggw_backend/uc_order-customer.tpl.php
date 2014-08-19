@@ -218,7 +218,7 @@
           '',
           //array('data' => '<strong>$'.number_format($tables[$category]['unit_price'], 2).'</strong>', 'class' => 'numeric-item'),
           //array('data' => '<strong>$'.number_format($tables[$category]['suggested'], 2).'</strong>', 'class' => 'numeric-item'),
-          array('data' => '<strong>'.number_format($tables[$category]['profit']/$i, 2).'%</strong>', 'class' => 'numeric-item'),
+          array('data' => '<strong>'.number_format($tables[$category]['profit']/$tables[$category]['line_count'], 2).'%</strong>', 'class' => 'numeric-item'),
           array('data' => '<strong>$'.number_format($tables[$category]['retail'], 2).'</strong>', 'class' => 'numeric-item')
         );
         print theme('table', $header, $rows['rows']);
