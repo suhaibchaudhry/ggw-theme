@@ -12,7 +12,7 @@
     }
 
     function sortCallback($a, $b) {
-      return strcasecmp($a[1], $b[1]);
+      return strcasecmp(trim($a[1]), trim($b[1]));
     }
 
     $status_names = array(
