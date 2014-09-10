@@ -204,8 +204,15 @@
         $i++;
         $tables[$category]['retail'] += $extended;
       }
+      $j = 0;
+      $cat_total = count($tables);
       foreach($tables as $category => $rows) {
         usort($rows['rows'], 'sortCallback');
+
+        if($j == count($tables)-1) {
+          ?><div class="last-item"<?php if($cat_total > 1) { ?> style="page-break-before: always;"<?php } ?>><?php
+        }
+
         print '<div class="category-wrap">'.$category.'</div>';
         $rows['rows'][] = array(
           '',
@@ -221,18 +228,25 @@
           array('data' => '<strong>'.number_format($tables[$category]['profit']/$tables[$category]['line_count'], 2).'%</strong>', 'class' => 'numeric-item'),
           array('data' => '<strong>$'.number_format($tables[$category]['retail'], 2).'</strong>', 'class' => 'numeric-item')
         );
+
         print theme('table', $header, $rows['rows']);
+
+        if($j == count($tables)-1) {
+        ?>
+          <div class="line-items"><?php print uc_order_pane_line_items('view', $order); ?></div>
+            <div class="payment-details"><?php print ggw_backend_transaction_details($order->order_id); ?></div>
+            <div class="payment-details">
+              <?php if(isset($payment_remaining)) : ?>
+                  <p><?php print $payment_remaining; ?></p>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+        <?php
+        }
+        $j++;
       }
       ?>
     </div>
-
-    <div class="line-items"><?php print uc_order_pane_line_items('view', $order); ?></div>
-    <div class="payment-details"><?php print ggw_backend_transaction_details($order->order_id); ?></div>
-    <div class="payment-details">
-      <?php if(isset($payment_remaining)) : ?>
-          <p><?php print $payment_remaining; ?></p>
-      <?php endif; ?>
-    </div>
-  </div>
 </body>
 </html>
