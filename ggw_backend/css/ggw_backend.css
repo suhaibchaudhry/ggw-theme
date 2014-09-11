@@ -138,3 +138,6 @@ table#field_additional_barcodes_values td.content-multiple-drag {
 #edit-promote-wrapper {
  clear: both;
 }
+.customer-list-table table tr:hover {
+	background: #E7FFF6;
+}
