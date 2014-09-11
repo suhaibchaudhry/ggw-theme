@@ -26,6 +26,10 @@
       return strcasecmp(trim($a[1]), trim($b[1]));
     }
 
+    function sortCategoryCallback($a, $b) {
+      return $a['weight'] - $b['weight'];
+    }
+
     $status_names = array(
     	"Closed Ticket" => "Customer Invoice",
     	"Quote Ticket" => "Customer Quotation",
@@ -178,6 +182,9 @@
           $i = 0;
           $tables[$category]['profit'] = 0;
           $tables[$category]['retail'] = 0;
+          if(!isset($tables[$category]['weight'])) {
+            $tables[$category]['weight'] = db_result(db_query("SELECT weight FROM term_data WHERE name = '%s' AND vid = '1'", $category));
+          }
         }
 
         $form = (int)$node->field_prod_form[0]['value'];
@@ -217,6 +224,7 @@
       }
       $j = 0;
       $cat_total = count($tables);
+      uasort($tables, 'sortCategoryCallback');
       foreach($tables as $category => $rows) {
         usort($rows['rows'], 'sortCallback');
 
@@ -252,10 +260,10 @@
             <div class="payment-details">
               <?php if(isset($payment_remaining)) : ?>
                   <p><?php print $payment_remaining; ?></p>
+                  <hr />
               <?php endif; ?>
             </div>
           </div>
-          <hr />
           <p style="margin-top: 5em;">Customer Signature _____________________</p>
         </div>
         <?php
