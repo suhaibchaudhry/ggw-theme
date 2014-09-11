@@ -244,14 +244,19 @@
 
         if($j == count($tables)-1) {
         ?>
+          <hr style="margin-top: 5em;" />
           <div class="line-items"><?php print uc_order_pane_line_items('view', $order); ?></div>
+            <hr />
             <div class="payment-details"><?php print ggw_backend_transaction_details($order->order_id); ?></div>
+            <hr />
             <div class="payment-details">
               <?php if(isset($payment_remaining)) : ?>
                   <p><?php print $payment_remaining; ?></p>
               <?php endif; ?>
             </div>
           </div>
+          <hr />
+          <p style="margin-top: 5em;">Customer Signature _____________________</p>
         </div>
         <?php
         }
