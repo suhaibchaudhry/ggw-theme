@@ -11,6 +11,17 @@
       //dpm($profile);
     }
 
+    $contact = '';
+    if(!empty($profile->field_profile_first_name[0]['value']) || !empty($profile->field_last_name[0]['value'])) {
+      if(!empty($profile->field_profile_first_name[0]['value'])) {
+        $contact .= $profile->field_profile_first_name[0]['value'].' ';
+      }
+
+      $contact .= $profile->field_last_name[0]['value'];
+    } else {
+      $contact = preg_replace(array('/\s*(T|t)?(X|x)?(D|d)(L|l).{0,3}(\d+|[^a-zA-Z]$)/', '/\#\d+/', '/DL: /'), '', $profile->field_contact_remarks[0]['value']);
+    }
+
     function sortCallback($a, $b) {
       return strcasecmp(trim($a[1]), trim($b[1]));
     }
@@ -88,7 +99,7 @@
           <span class="value">
             <?php if($uid) { ?>
             <?php print $profile->title ?> (<?php print $profile->name ?>)<br />
-            <?php print $profile->field_contact_remarks[0]['value'] ?><br />
+            <?php print $contact ?><br />
             <?php print $profile->field_company_address[0]['street1'] ?><br />
             <?php print $profile->field_company_address[0]['city'] ?>, <?php print $profile->field_company_address[0]['state'] ?> <?php print $profile->field_company_address[0]['zip'] ?><br />
             <?php } else { ?>
@@ -104,7 +115,7 @@
             <?php print $profile->field_shipping_address[0]['value'] ?><br />
             <?php print $profile->field_shipping_address[0]['street1'] ?><br />
             <?php print $profile->field_shipping_address[0]['city'] ?>, <?php print $profile->field_shipping_address [0]['state'] ?> <?php print $profile->field_shipping_address [0]['zip'] ?><br />
-            <?php print $profile->field_contact_remarks[0]['value'] ?><br /><br />
+            <?php print $contact ?><br /><br />
             <strong>Phone: </strong><?php print $profile->field_profile_company_phone[0]['number'] ?>
           </span>
         </div>
