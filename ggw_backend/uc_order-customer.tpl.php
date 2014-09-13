@@ -268,7 +268,7 @@
               <?php endif; ?>
             </div>
           </div>
-          <p style="line-height: 10pt;">Customer Signature _____________________</p>
+          <p style="margin: 2pt 0 0;">Customer Signature _____________________</p>
         </div>
     </div>
 </body>
