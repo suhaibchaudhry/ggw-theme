@@ -222,14 +222,17 @@
         $i++;
         $tables[$category]['retail'] += $extended;
       }
-      $j = 0;
-      $cat_total = count($tables);
+
       uasort($tables, 'sortCategoryCallback');
+      $j = 0;
+      $cat_count = count($tables);
       foreach($tables as $category => $rows) {
         usort($rows['rows'], 'sortCallback');
 
-        if($j == count($tables)-1) {
-          ?><div class="last-item"<?php if($cat_total > 1) { ?> style="page-break-before: always;"<?php } ?>><?php
+        if($cat_count > 1 && $j == $cat_count-1) {
+          print '<div style="page-break-inside: avoid;">';
+        } else {
+          print '<div>';
         }
 
         print '<div class="category-wrap">'.$category.'</div>';
@@ -248,10 +251,11 @@
           array('data' => '<strong>$'.number_format($tables[$category]['retail'], 2).'</strong>', 'class' => 'numeric-item')
         );
 
-        print theme('table', $header, $rows['rows']);
-
-        if($j == count($tables)-1) {
-        ?>
+        print theme('table', $header, $rows['rows']).'</div>';
+        $j++;
+      }
+      ?>
+        <div class="last-item" style="page-break-inside: avoid;">
           <hr style="margin-top: 5em;" />
           <div class="line-items"><?php print uc_order_pane_line_items('view', $order); ?></div>
             <hr />
@@ -264,13 +268,8 @@
               <?php endif; ?>
             </div>
           </div>
-          <p style="margin-top: 5em;">Customer Signature _____________________</p>
+          <p style="line-height: 10pt;">Customer Signature _____________________</p>
         </div>
-        <?php
-        }
-        $j++;
-      }
-      ?>
     </div>
 </body>
 </html>
