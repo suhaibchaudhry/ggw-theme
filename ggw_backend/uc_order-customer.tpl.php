@@ -235,7 +235,7 @@
           print '<div>';
         }
 
-        print '<div class="category-wrap">'.$category.'</div>';
+        print '<div class="category-wrap" style="page-break-inside: avoid;">'.$category.'</div>';
         $rows['rows'][] = array(
           '',
           '<center><strong>Line Count:</strong> '.$tables[$category]['line_count'].'</center>',
