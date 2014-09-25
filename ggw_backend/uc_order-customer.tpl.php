@@ -11,6 +11,15 @@
       //dpm($profile);
     }
 
+    $rma_ticket = false;
+    $title_limit = 28;
+    $packaging_limit = 8;
+    if($order_status == "Closed RMA Ticket") {
+      $rma_ticket = true;
+      $title_limit = 40;
+      $packaging_limit = 15;
+    }
+
     $contact = '';
     if(!empty($profile->field_profile_first_name[0]['value']) || !empty($profile->field_last_name[0]['value'])) {
       if(!empty($profile->field_profile_first_name[0]['value'])) {
@@ -130,9 +139,13 @@
     <div class="products">
       <?php
       $tables = array();
-      //Add suggested
-      $header = array(array('data' => 'Barcode', 'class' => 'left-item'), 'Description', 'Packaging', 'Qty', 'Price', 'Extended', 'Unit Price', 'Sugg. Retail', 'Profit Margin', 'Extended Retail');
-
+      if($rma_ticket) {
+        //Add suggested
+        $header = array(array('data' => 'Barcode', 'class' => 'left-item'), 'Description', 'Packaging', 'Qty', 'Price', 'Extended');
+      } else {
+        //Add suggested
+        $header = array(array('data' => 'Barcode', 'class' => 'left-item'), 'Description', 'Packaging', 'Qty', 'Price', 'Extended', 'Unit Price', 'Sugg. Retail', 'Profit Margin', 'Extended Retail');
+      }
       //Condense multi-line item products.
       $exists = array();
       $new = array();
@@ -198,19 +211,31 @@
 	      $unit_price = $product->price/$form;
         $suggested = $unit_price*$retail_markup;
         $extended = $product->price*$product->qty*$retail_markup;
-        $row = array(
-          $product->model,
-          //$node->field_prod_unit_barcode[0]['value'],
-          strlen($node->title) > 28 ? substr($node->title,0,28)."..." : $node->title,
-          strlen($node->field_prod_packing[0]['value']) > 8 ? substr($node->field_prod_packing[0]['value'],0,5)."..." : $node->field_prod_packing[0]['value'],
-          array('data' => round($product->qty, 2), 'class' => 'qty-item'),
-          array('data' => number_format($product->price, 2), 'class' => 'numeric-item'),
-          array('data' => number_format($product->price*$product->qty, 2), 'class' => 'numeric-item'),
-          array('data' => number_format($unit_price, 2), 'class' => 'numeric-item'),
-          array('data' => number_format($suggested, 2), 'class' => 'numeric-item'),
-          array('data' => $term_info->retail_markup.'%', 'class' => 'numeric-item'),
-          array('data' => number_format($extended, 2), 'class' => 'numeric-item')
-        );
+        if($rma_ticket) {
+          $row = array(
+            $product->model,
+            //$node->field_prod_unit_barcode[0]['value'],
+            strlen($node->title) > $title_limit ? substr($node->title,0,$title_limit)."..." : $node->title,
+            strlen($node->field_prod_packing[0]['value']) > $packaging_limit ? substr($node->field_prod_packing[0]['value'],0,$packaging_limit)."..." : $node->field_prod_packing[0]['value'],
+            array('data' => round($product->qty, 2), 'class' => 'qty-item'),
+            array('data' => number_format($product->price, 2), 'class' => 'numeric-item'),
+            array('data' => number_format($product->price*$product->qty, 2), 'class' => 'numeric-item')
+          );
+        } else {
+          $row = array(
+            $product->model,
+            //$node->field_prod_unit_barcode[0]['value'],
+            strlen($node->title) > $title_limit ? substr($node->title,0,$title_limit)."..." : $node->title,
+            strlen($node->field_prod_packing[0]['value']) > $packaging_limit ? substr($node->field_prod_packing[0]['value'],0,$packaging_limit)."..." : $node->field_prod_packing[0]['value'],
+            array('data' => round($product->qty, 2), 'class' => 'qty-item'),
+            array('data' => number_format($product->price, 2), 'class' => 'numeric-item'),
+            array('data' => number_format($product->price*$product->qty, 2), 'class' => 'numeric-item'),
+            array('data' => number_format($unit_price, 2), 'class' => 'numeric-item'),
+            array('data' => number_format($suggested, 2), 'class' => 'numeric-item'),
+            array('data' => $term_info->retail_markup.'%', 'class' => 'numeric-item'),
+            array('data' => number_format($extended, 2), 'class' => 'numeric-item')
+          );
+        }
 
         $tables[$category]['rows'][] = $row;
         $tables[$category]['line_count']++;
@@ -236,20 +261,31 @@
         }
 
         print '<div class="category-wrap" style="page-break-inside: avoid;">'.$category.'</div>';
-        $rows['rows'][] = array(
-          '',
-          '<center><strong>Line Count:</strong> '.$tables[$category]['line_count'].'</center>',
-          array('data' => '<div style="text-align: right;"><strong>Count:</strong></div>', 'class' => 'no-border'),
-          '<center>'.$tables[$category]['item_count'].'</center>',
-          '',
-          array('data' => '<strong>$'.number_format($tables[$category]['total'], 2).'</strong>', 'class' => 'numeric-item'),
-          '',
-          '',
-          //array('data' => '<strong>$'.number_format($tables[$category]['unit_price'], 2).'</strong>', 'class' => 'numeric-item'),
-          //array('data' => '<strong>$'.number_format($tables[$category]['suggested'], 2).'</strong>', 'class' => 'numeric-item'),
-          array('data' => '<strong>'.number_format($tables[$category]['profit']/$tables[$category]['line_count'], 2).'%</strong>', 'class' => 'numeric-item'),
-          array('data' => '<strong>$'.number_format($tables[$category]['retail'], 2).'</strong>', 'class' => 'numeric-item')
-        );
+        if($rma_ticket) {
+          $rows['rows'][] = array(
+            '',
+            '<center><strong>Line Count:</strong> '.$tables[$category]['line_count'].'</center>',
+            array('data' => '<div style="text-align: right;"><strong>Count:</strong></div>', 'class' => 'no-border'),
+            '<center>'.$tables[$category]['item_count'].'</center>',
+            '',
+            array('data' => '<strong>$'.number_format($tables[$category]['total'], 2).'</strong>', 'class' => 'numeric-item')
+          );
+        } else {
+          $rows['rows'][] = array(
+            '',
+            '<center><strong>Line Count:</strong> '.$tables[$category]['line_count'].'</center>',
+            array('data' => '<div style="text-align: right;"><strong>Count:</strong></div>', 'class' => 'no-border'),
+            '<center>'.$tables[$category]['item_count'].'</center>',
+            '',
+            array('data' => '<strong>$'.number_format($tables[$category]['total'], 2).'</strong>', 'class' => 'numeric-item'),
+            '',
+            '',
+            //array('data' => '<strong>$'.number_format($tables[$category]['unit_price'], 2).'</strong>', 'class' => 'numeric-item'),
+            //array('data' => '<strong>$'.number_format($tables[$category]['suggested'], 2).'</strong>', 'class' => 'numeric-item'),
+            array('data' => '<strong>'.number_format($tables[$category]['profit']/$tables[$category]['line_count'], 2).'%</strong>', 'class' => 'numeric-item'),
+            array('data' => '<strong>$'.number_format($tables[$category]['retail'], 2).'</strong>', 'class' => 'numeric-item')
+          );
+        }
 
         print theme('table', $header, $rows['rows']).'</div>';
         $j++;
@@ -257,18 +293,24 @@
       ?>
         <div class="last-item" style="page-break-inside: avoid;">
           <hr style="margin-top: 5em;" />
+          <?php if($rma_ticket) { ?>
+          <div class="line-items"><?php print str_replace('Total', 'Refund Total', uc_order_pane_line_items('view', $order)); ?></div>
+          <?php } else { ?>
           <div class="line-items"><?php print uc_order_pane_line_items('view', $order); ?></div>
+          <?php } ?>
             <hr />
             <div class="payment-details"><?php print ggw_backend_transaction_details($order->order_id); ?></div>
+            <?php if(isset($payment_remaining)) : ?>
             <hr />
             <div class="payment-details">
-              <?php if(isset($payment_remaining)) : ?>
                   <p><?php print $payment_remaining; ?></p>
                   <hr />
-              <?php endif; ?>
             </div>
+            <?php endif; ?>
           </div>
-          <p style="margin: 2pt 0 0;">Customer Signature _____________________</p>
+          <?php if(!$rma_ticket) : ?>
+            <p style="margin: 2pt 0 0;">Customer Signature _____________________</p>
+          <?php endif; ?>
         </div>
     </div>
 </body>
