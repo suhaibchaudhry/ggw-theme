@@ -46,14 +46,15 @@
     );
     $full_user = user_load($uid);
 
-    if($full_user->credit_limits->pending_payments) {
+    //if($full_user->credit_limits->pending_payments) {
       $ticket_ar = ggw_backend_invoice_credit_amount($order->order_id);
       if($ticket_ar) {
+        $credit = _user_term_credits_getCredits($uid, $order->created+5);
         $payment_remaining = theme('table', array('Starting Balance', 'Ending Balance'), array(
-          array(uc_currency_format($full_user->credit_limits->pending_payments-$ticket_ar), uc_currency_format($full_user->credit_limits->pending_payments))
+          array(uc_currency_format($credit->pending_payments-$ticket_ar), uc_currency_format($credit->pending_payments))
         ));
       }
-    }
+    //}
 ?>
 <!DOCTYPE HTML>
 <head>
