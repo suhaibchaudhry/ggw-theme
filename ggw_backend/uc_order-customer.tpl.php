@@ -49,9 +49,10 @@
     //if($full_user->credit_limits->pending_payments) {
       $ticket_ar = ggw_backend_invoice_credit_amount($order->order_id);
       if($ticket_ar) {
-        $credit = _user_term_credits_getCredits($uid, $order->created+5);
+        $consumption_date = db_result(db_query("SELECT utcu.consumption_date FROM {user_term_credits_usages} utcu WHERE utcu.order_id = '%d'", $order->order_id));
+        $credit = _user_term_credits_getCredits($uid, $consumption_date);
         $payment_remaining = theme('table', array('Starting Balance', 'Ending Balance'), array(
-          array(uc_currency_format($credit->pending_payments-$ticket_ar), uc_currency_format($credit->pending_payments))
+          array(uc_currency_format($credit->pending_payments), uc_currency_format($credit->pending_payments+$ticket_ar))
         ));
       }
     //}
