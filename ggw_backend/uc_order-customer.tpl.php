@@ -97,7 +97,7 @@
           <p><span class="label">Email: </span>info@general-goods.com</p>
           <p><span class="label">Website: </span>info@general-goods.com</p>
           <p><span class="label">Phone: </span>713-780-3636 <span class="label">Fax: </span>713-780-1718</p>
-          <?php if($profile->field_tobacco_permit_id[0]['value']) : ?><p><span class="label">Tobacco ID: </span>93044639</p><?php endif; ?>
+          <?php if($profile->field_tobacco_permit_id[0]['value']) : ?><?php endif; ?>
         </div>
         <div class="invoice-info column">
           <?php if($status_names[$order_status]) : ?><p class="invoiceid" style="font-size: 1.5em;"><span class="label"><?php print $status_names[$order_status] ?></span></p><?php endif; ?>
