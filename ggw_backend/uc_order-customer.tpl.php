@@ -62,7 +62,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" type="text/css" href="<?php print base_path() . path_to_theme(); ?>/css/invoice.css" media="all" />
   <?php if($order->billing_zone == '1') { ?>
-  <title>Invoice</title>
+  <title>Receipt</title>
   <?php } else { ?>
   <title><?php print $profile->title ?> (<?php print $profile->name ?>)</title>
   <?php } ?>
