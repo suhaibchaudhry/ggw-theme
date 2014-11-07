@@ -142,6 +142,20 @@ function ggw_backend_transaction_details($ticketId) {
     $content .= '<tr><td>Credit Card</td><td>'.uc_currency_format($cc->amount_paid).'</td><td>'.$td->xml->transaction->payment->creditCard->cardType.'</td><td>'.$td->xml->transaction->payment->creditCard->cardNumber.'</td><td>'.$td->xml->transaction->billTo->firstName.' '.$td->xml->transaction->billTo->lastName.'</td></tr>';
   }
 
+  $ar_sql = "SELECT order_id, credit_amount, due_date FROM user_term_credits_usages u WHERE u.order_id = '%d'";
+  $ar = db_fetch_object(db_query($ar_sql, $ticketId));
+  if($ar->order_id) {
+    $content .= '<tr><th>Method</th><th>Amount</th><th>Due Date</th></tr>';
+    $content .= '<tr><td>Credit</td><td>'.uc_currency_format($ar->credit_amount).'</td><td>'.date("n/j/Y", $ar->due_date).'</td></tr>';
+  }
+
+  $rma_sql = "SELECT rl.pid, rl.total_refund, tl.cuid FROM pos_api_expose_rma_refund_log rl INNER JOIN pos_api_expose_transaction_log tl ON rl.pid = tl.rma_pid WHERE rl.rma_ticket_id = '0' AND tl.ticket_id = '%d'";
+  $rma = db_fetch_object(db_query($rma_sql, $ticketId));
+  if($rma->pid) {
+    $content .= '<tr><th>Method</th><th>Amount</th><th>Current RMA Balance</th></tr>';
+    $content .= '<tr><td>Redeem RMA</td><td>'.uc_currency_format($rma->total_refund).'</td><td>'.date("n/j/Y", $ar->due_date).'</td></tr>';
+  }
+
   $content .= '</table>';
 
   return $content;
