@@ -93,7 +93,7 @@ function ggw_backend_transaction_details($ticketId) {
     $content .= '<tr><td>Credit</td><td>'.uc_currency_format($ar->credit_amount).'</td><td>'.date("n/j/Y", $ar->due_date).'</td></tr>';
   }
 
-  $rma_sql = "SELECT rl.pid, rl.total_refund, tl.cuid FROM pos_api_expose_rma_refund_log rl INNER JOIN pos_api_expose_transaction_log tl ON rl.pid = tl.rma_pid WHERE rl.rma_ticket_id = '0' AND tl.ticket_id = '%d'";
+  $rma_sql = "SELECT rl.pid, ABS(rl.total_refund) as total_refund, tl.cuid FROM pos_api_expose_rma_refund_log rl INNER JOIN pos_api_expose_transaction_log tl ON rl.pid = tl.rma_pid WHERE rl.rma_ticket_id = '0' AND tl.ticket_id = '%d'";
   $rma = db_fetch_object(db_query($rma_sql, $ticketId));
   if($rma->pid) {
     $rma_credits = db_result(db_query("SELECT IFNULL(SUM(total_refund),0) FROM {pos_api_expose_rma_refund_log} WHERE cuid = '%d' AND credit_usage_id = '0'", $rma->cuid));
