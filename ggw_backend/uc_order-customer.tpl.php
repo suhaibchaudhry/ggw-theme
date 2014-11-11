@@ -18,6 +18,7 @@
       $rma_ticket = true;
       $title_limit = 40;
       $packaging_limit = 15;
+      $cash_rma = db_result(db_query("SELECT COUNT(*) FROM pos_api_expose_transaction_log WHERE ticket_id = '%d' AND rma_pid = '-1'", $order->order_id));
     }
 
     /*$contact = '';
@@ -39,11 +40,20 @@
       return $a['weight'] - $b['weight'];
     }
 
-    $status_names = array(
-    	"Closed Ticket" => "Customer Invoice",
-    	"Quote Ticket" => "Customer Quotation",
-    	"Closed RMA Ticket" => "Credit Memo"
-    );
+    if($cash_rma == '0') {
+      $status_names = array(
+      	"Closed Ticket" => "Customer Invoice",
+      	"Quote Ticket" => "Customer Quotation",
+      	"Closed RMA Ticket" => "Credit Memo"
+      );
+    } else {
+      $status_names = array(
+        "Closed Ticket" => "Customer Invoice",
+        "Quote Ticket" => "Customer Quotation",
+        "Closed RMA Ticket" => "Cash Refund Memo"
+      );
+    }
+   
     $full_user = user_load($uid);
 
     //if($full_user->credit_limits->pending_payments) {
