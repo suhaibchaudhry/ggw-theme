@@ -312,7 +312,11 @@
           <div class="line-items"><?php print uc_order_pane_line_items('view', $order); ?></div>
           <?php } ?>
             <hr />
+            <?php if($order->billing_zone == '0') { ?>
             <div class="payment-details"><?php print ggw_backend_transaction_details($order->order_id); ?></div>
+            <?php } else { ?>
+            <div class="payment-details"><?php print ggw_backend_transaction_details_dp($order->order_id); ?></div>
+            <?php } ?>
             <?php if(isset($payment_remaining)) : ?>
             <hr />
             <div class="payment-details">
