@@ -63,11 +63,11 @@ function ggw_backend_transaction_details($ticketId) {
     $content .= '<tr><td>CASH</td><td>'.uc_currency_format($cash->amount_paid).'</td><td>'.uc_currency_format($cash->change).'</td></tr>';
   }
 
-  $check_sql = "SELECT ticket_id, paid_amount, cash_date FROM pos_api_expose_check_log WHERE ticket_id = '%d'";
+  $check_sql = "SELECT ticket_id, paid_amount, check_number, cash_date FROM pos_api_expose_check_log WHERE ticket_id = '%d'";
   $check = db_fetch_object(db_query($check_sql, $ticketId));
   if($check->ticket_id) {
-    $content .= '<tr><th>Method</th><th>Payment</th><th>Check Date</th></tr>';
-    $content .= '<tr><td>CHECK</td><td>'.uc_currency_format($check->paid_amount).'</td><td>'.$check->cash_date.'</td></tr>';
+    $content .= '<tr><th>Method</th><th>Payment</th><th>Check # / Check Date</th></tr>';
+    $content .= '<tr><td>CHECK</td><td>'.uc_currency_format($check->paid_amount).'</td><td>'.$check->check_number.' / '.$check->cash_date.'</td></tr>';
   }
 
   $mo_sql = "SELECT ticket_id, paid_amount, reference FROM pos_api_expose_money_order_log WHERE ticket_id = '%d'";
@@ -116,11 +116,11 @@ function ggw_backend_transaction_details_dp($ticketId) {
     $content .= '<tr><td>CASH</td><td>'.uc_currency_format($cash->amount_paid).'</td><td>'.uc_currency_format($cash->change).'</td></tr>';
   }
 
-  $check_sql = "SELECT ticket_id, paid_amount, cash_date FROM pos_api_expose_check_log_dp WHERE ticket_id = '%d'";
+  $check_sql = "SELECT ticket_id, paid_amount, check_number, cash_date FROM pos_api_expose_check_log_dp WHERE ticket_id = '%d'";
   $check = db_fetch_object(db_query($check_sql, $ticketId));
   if($check->ticket_id) {
-    $content .= '<tr><th>Method</th><th>Payment</th><th>Check Date</th></tr>';
-    $content .= '<tr><td>CHECK</td><td>'.uc_currency_format($check->paid_amount).'</td><td>'.$check->cash_date.'</td></tr>';
+    $content .= '<tr><th>Method</th><th>Payment</th><th>Check # / Check Date</th></tr>';
+    $content .= '<tr><td>CHECK</td><td>'.uc_currency_format($check->paid_amount).'</td><td>'.$check->check_number.' / '.$check->cash_date.'</td></tr>';
   }
 
   $mo_sql = "SELECT ticket_id, paid_amount, reference FROM pos_api_expose_money_order_log_dp WHERE ticket_id = '%d'";
