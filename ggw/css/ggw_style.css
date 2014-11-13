@@ -790,3 +790,7 @@ div.product-title {
 #order-pane-ship_to, #order-pane-bill_to {
  display: none;
 }
+
+#edit-favorder-name-wrapper, #block-ggw_mobile_orders-0 {
+  clear: both;
+}
