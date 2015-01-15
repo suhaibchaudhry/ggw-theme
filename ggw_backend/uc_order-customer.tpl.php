@@ -50,7 +50,7 @@
       $status_names = array(
         "Closed Ticket" => "Customer Invoice",
         "Quote Ticket" => "Customer Quotation",
-        "Closed RMA Ticket" => "Cash Refund Memo"
+        "Closed RMA Ticket" => "Cash Refund Receipt"
       );
     }
    
