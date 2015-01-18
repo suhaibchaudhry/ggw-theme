@@ -189,7 +189,7 @@
           if($term->vid == 7) {
             $term_info = db_fetch_object(db_query("SELECT invoice_category, retail_markup FROM {ggw_state_reporting_terms} WHERE vid = '%d'", $term->tid));
             $category = $term_info->invoice_category;
-            $retail_markup = 1+($term_info->retail_markup/100);
+            $retail_markup = $term_info->retail_markup;
             break;
           }
         }
@@ -222,8 +222,9 @@
       		$form = $form/$qty_split;
       	}
 	      $unit_price = $product->price/$form;
-        $suggested = $unit_price*$retail_markup;
-        $extended = $product->price*$product->qty*$retail_markup;
+        $suggested = ($unit_price/(100-$retail_markup))*100;
+        $extended = (($product->price*$product->qty)/(100-$retail_markup))*100;
+
         if($rma_ticket) {
           $row = array(
             $product->model,
