@@ -141,3 +141,26 @@ table#field_additional_barcodes_values td.content-multiple-drag {
 .customer-list-table table tr:hover {
 	background: #E7FFF6;
 }
+
+.fieldContainer {
+	position: relative;
+	float: left;
+	padding: 0 60px 0 0;
+}
+
+.profitInputSuffix, .profitInput {
+	position: absolute;
+}
+
+.profitInputSuffix {
+	bottom: 6px;
+	right: 0px;
+}
+
+.profitInput {
+	border: 1px solid;
+	width: 40px;
+	bottom: 1px;
+	right: 12px;
+	padding: 2px;
+}
