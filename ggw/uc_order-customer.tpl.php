@@ -14,6 +14,7 @@
     }
 ?>
 <!DOCTYPE HTML>
+<html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" type="text/css" href="<?php print base_path() . path_to_theme(); ?>/css/invoice.css" media="all" />
