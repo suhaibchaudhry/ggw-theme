@@ -9,6 +9,40 @@
  *   in. This is usually 'left' or 'right'.
  * @ingroup themeable
  */
+function ggw_backend_invoice_payment_details($rma_ticket, $order) {
+      $ticket_ar = ggw_backend_invoice_credit_amount($order->order_id);
+      if($ticket_ar) {
+        $consumption_date = db_result(db_query("SELECT utcu.consumption_date FROM {user_term_credits_usages} utcu WHERE utcu.order_id = '%d'", $order->order_id));
+        $credit = _user_term_credits_getCredits($uid, $consumption_date);
+        $payment_remaining = theme('table', array('Starting Balance', 'Ending Balance'), array(
+          array(uc_currency_format($credit->pending_payments), uc_currency_format($credit->pending_payments+$ticket_ar))
+        ));
+      }
+
+      $content = '';
+      $content .= '<div class="last-item">';
+
+      if($rma_ticket) {
+          $content .= '<div class="line-items">'.str_replace('Total', 'Refund Total', uc_order_pane_line_items('view', $order)).'</div>';
+      } else {
+          $content .= '<div class="line-items">'.uc_order_pane_line_items('view', $order).'</div>';
+      }
+
+      if($order->billing_zone == '0') {
+           $content .= '<div class="payment-details">'.ggw_backend_transaction_details($order->order_id).'</div>';
+      } else {
+           $content .= '<div class="payment-details">'.ggw_backend_transaction_details_dp($order->order_id).'</div>';
+      }
+
+      if(isset($payment_remaining)) {
+           $content .= '<div class="payment-details">';
+           $content .= '<p>'.$payment_remaining.'</p>';
+           $content .= '</div>';
+      }
+
+      $content .= '</div>';
+}
+
 function ggw_backend_admin_page($blocks) {
   $stripe = 0;
   $container = array();
