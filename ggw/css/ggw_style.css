@@ -794,3 +794,12 @@ div.product-title {
 #edit-favorder-name-wrapper, #block-ggw_mobile_orders-0 {
   clear: both;
 }
+.node-full .product-info {
+	clear: right;
+}
+.node-full .product-sale-price.product.sell {
+	font-weight: normal;
+	font-size: 20px;
+	color: #EF0000;
+	text-decoration: line-through;
+}

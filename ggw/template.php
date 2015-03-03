@@ -55,12 +55,20 @@ function ggw_fieldset($element) {
 
 function ggw_uc_product_price($price, $context, $options = array()) {
   global $user;
+  $output = '';
+  if(!empty($context['subject']['node']->original_price_pre_sale)) {
+    $output .= '<div class="product-info product-sale-price ' . implode(' ', (array) $context['class']) . '">';
+    $options_sale = $options;
+    $options_sale['label'] = FALSE;
+    $output .= uc_price($context['subject']['node']->original_price_pre_sale, $context, $options_sale);
+    $output .= '</div>';
+  }
 
-  $output = '<div class="product-info ' . implode(' ', (array) $context['class']) . '">';
+  $output .= '<div class="product-info ' . implode(' ', (array) $context['class']) . '">';
   if($user->uid) {
   	$output .= uc_price($price, $context, $options);
   } else {
-	$output .= 'Please login for price'; 
+	  $output .= 'Please login for price'; 
   }
   $output .= '</div>';
 
