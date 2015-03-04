@@ -226,6 +226,12 @@
         $suggested = ($unit_price/(100-$retail_markup))*100;
         $extended = (($product->price*$product->qty)/(100-$retail_markup))*100;
 
+        if($node->original_price_pre_sale) {
+          $price_formatted = '<span style="text-decoration: line-through;">'.number_format($node->original_price_pre_sale, 2).'</span> '.number_format($product->price, 2);
+        } else {
+          $price_formatted = number_format($product->price, 2);
+        }
+
         if($rma_ticket) {
           $row = array(
             $product->model,
@@ -243,7 +249,7 @@
             strlen($node->title) > $title_limit ? substr($node->title,0,$title_limit)."..." : $node->title,
             strlen($node->field_prod_packing[0]['value']) > $packaging_limit ? substr($node->field_prod_packing[0]['value'],0,$packaging_limit)."..." : $node->field_prod_packing[0]['value'],
             array('data' => round($product->qty, 2), 'class' => 'qty-item'),
-            array('data' => number_format($product->price, 2), 'class' => 'numeric-item'),
+            array('data' => $price_formatted, 'class' => 'numeric-item'),
             array('data' => number_format($product->price*$product->qty, 2), 'class' => 'numeric-item'),
             array('data' => number_format($unit_price, 2), 'class' => 'numeric-item'),
             array('data' => number_format($suggested, 2), 'class' => 'numeric-item'),
